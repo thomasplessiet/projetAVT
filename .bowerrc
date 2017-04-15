@@ -1,0 +1,5 @@
+{ 
+    "directory": "web/assets/vendor/",
+    "proxy": "http://proxy.vinci-melun.org:3128/",
+    "https-proxy":"http://proxy.vinci-melun.org:3128/"
+} 

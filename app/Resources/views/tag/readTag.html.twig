@@ -1,0 +1,44 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+    {% block h1 %}
+        Affichage de(s) tag(s)
+    {% endblock %}
+    {% block p %}
+        <table class="table custom-table-tag">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Voir le(s) lien(s) associé(s)</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
+                    {% endif %}
+                </tr>
+            <tbody>
+
+                {% for tag in listeTags %}
+                    <tr>
+                        <td>
+                            {{ tag.name}}
+                        </td>
+                        <td></td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td><a href="{{path('updateTag', {'name': tag.name} )}}">Modifier</a></td>
+                            <td><a href="{{path('deleteTag', {'id': tag.id} )}}" onclick="return confirm('Êtes vous sûr de vouloir supprimer le tag: {{ tag.name }}')">Supprimer</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+        {% if app.session.flashBag.has('success') %}
+            <div class="alert alert-success alert-custom">
+                {% for msg in app.session.flashBag.get('success') %}
+                    {{ msg }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endblock %}
+{% endblock %}
